@@ -6,11 +6,13 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { tokens } from "../../theme";
+import Layout from "../../Laybout";
 
 const FAQ = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
+    <Layout>    
     <Box m="20px">
       <Header title="FAQ" subtitle="Frequently Asked Questions Page" />
 
@@ -80,6 +82,7 @@ const FAQ = () => {
         </AccordionDetails>
       </Accordion>
     </Box>
+    </Layout>
   );
 };
 
