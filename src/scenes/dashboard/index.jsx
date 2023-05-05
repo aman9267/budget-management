@@ -12,12 +12,19 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import { useState } from "react";
+import Sidebar from "../global/Sidebar";
+import Topbar from "../global/Topbar";
+import Layout from "../../Laybout";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [isSidebar, setIsSidebar] = useState(true);
 
   return (
+    <>
+    <Layout>
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -217,7 +224,7 @@ const Dashboard = () => {
         </Box>
 
         {/* ROW 3 */}
-        <Box
+        {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -275,9 +282,11 @@ const Dashboard = () => {
           <Box height="200px">
             <GeographyChart isDashboard={true} />
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
+    </Layout>
+    </>
   );
 };
 

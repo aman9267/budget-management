@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import Layout from "../../Laybout";
 
 const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -12,6 +13,7 @@ const Form = () => {
   };
 
   return (
+    <Layout>
     <Box m="20px">
       <Header title="CREATE USER" subtitle="Create a New User Profile" />
 
@@ -125,6 +127,7 @@ const Form = () => {
         )}
       </Formik>
     </Box>
+    </Layout>
   );
 };
 

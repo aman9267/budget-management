@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,30 +13,43 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { auth } from '../../firebase-config'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { Alert } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const theme = createTheme();
 
 export default function Login() {
+  const navigate = useNavigate()
+  const [errorMessage , setErrorMessage] = React.useState('')
+  const [isError, setIsError] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
   const handleSubmit = (event) => {
+    setLoading(true)
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    signInWithEmailAndPassword(auth, data.get('email'), data.get('password'))
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user?.accessToken)
+        localStorage.setItem("token", user?.accessToken)
+        navigate('/')
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setErrorMessage(errorMessage)
+        setIsError(true)
+        setLoading(false)
+      });
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+    setLoading(false)
   };
 
   return (
@@ -57,6 +71,7 @@ export default function Login() {
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            {isError && <Alert severity="error">{errorMessage}</Alert>}
             <TextField
               margin="normal"
               required
@@ -81,14 +96,16 @@ export default function Login() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
+            <LoadingButton
+            loading={loading}
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              
             >
               Sign In
-            </Button>
+            </LoadingButton>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -103,7 +120,7 @@ export default function Login() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        
       </Container>
     </ThemeProvider>
   );
