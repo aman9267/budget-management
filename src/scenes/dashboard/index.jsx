@@ -9,13 +9,11 @@ import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import StatBox from "../../components/StatBox";
-import { useState } from "react";
 import Layout from "../../Laybout";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isSidebar, setIsSidebar] = useState(true);
 
   return (
     <>
