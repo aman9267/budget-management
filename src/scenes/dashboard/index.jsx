@@ -27,6 +27,7 @@ const Dashboard = () => {
   // State List Here 
   const [open, setOpen] = useState(false)
   const [formLoading, setFormLoading] = useState(false)
+  const [record, setRecord] = useState('Expense')
 
 
   // const [ExpenseCategoryList] = useCollection(
@@ -341,81 +342,144 @@ const Dashboard = () => {
           fullWidth
           maxWidth='sm'
         >
-          <DialogTitle>Subscribe</DialogTitle>
-          <DialogContent>
-            <Formik
-              onSubmit={handleFormSubmit}
-              initialValues={initialValues}
-              validationSchema={checkoutSchema}
-              sx={{ p: 2 }}
+          <DialogTitle>Add Record</DialogTitle>
+          <Box display='flex' justifyContent='center' gap={1} >
+            <Button variant='contained'
+            sx={{backgroundColor: '#DB0C05', 
+            ':hover': {
+              bgcolor: '#7A011B', 
+              color: 'white',
+            },
+            borderRadius: 0,
+            boxShadow: 'none'
+          }}
+          onClick={()=>{setRecord('Expense')}}
             >
-              {({
-                values,
-                errors,
-                touched,
-                handleBlur,
-                handleChange,
-                handleSubmit,
-              }) => (
-                <form onSubmit={handleSubmit}>
-                  <Box
-                    display="grid"
-                    gap="30px"
-                    gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-                    sx={{
-                      "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-                    }}
-                  >
-                    <TextField
-                      fullWidth
-                      variant="filled"
-                      type="text"
-                      label="Expense Category Name"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.expenseCategory}
-                      name="expenseCategory"
-                      error={!!touched.expenseCategory && !!errors.expenseCategory}
-                      helperText={touched.expenseCategory && errors.expenseCategory}
-                      sx={{ gridColumn: "span 2" }}
-                    />
-                    <TextField
-                      fullWidth
-                      variant="filled"
-                      type="number"
-                      label="Budgets $"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.budgets}
-                      name="budgets"
-                      error={!!touched.budgets && !!errors.budgets}
-                      helperText={touched.budgets && errors.budgets}
-                      sx={{ gridColumn: "span 2" }}
-                    />
-                    <TextField
-                      multiline
-                      rows={3}
-                      fullWidth
-                      variant="filled"
-                      type="text"
-                      label="Description (Optional)"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.description}
-                      name="description"
-                      error={!!touched.description && !!errors.description}
-                      helperText={touched.description && errors.description}
-                      sx={{ gridColumn: "span 4" }}
-                    />
-                  </Box>
-                  <DialogActions sx={{ mt: 2 }}>
-                    <Button onClick={handleClose} color="secondary" variant="outlined">Close</Button>
-                    <LoadingButton loading={formLoading} onClick={handleFormSubmit} type="submit" color="secondary" variant="contained">Create New User</LoadingButton>
-                  </DialogActions>
-                </form>
-              )}
-            </Formik>
-          </DialogContent>
+              Expense
+            </Button>
+            <Button variant='contained'
+            sx={{backgroundColor: '#1DA700', 
+            ':hover': {
+              bgcolor: '#046F00', 
+              color: 'white',
+            },
+            borderRadius: 0,
+            boxShadow: 'none'
+          }}
+          onClick={()=>{setRecord('Debits')}}
+            >
+              Income
+            </Button>
+          </Box>
+          {record === 'Expense' ? 
+          <DialogContent 
+          // sx={{backgroundColor: 'green'}}
+          >
+          <Formik
+            onSubmit={handleFormSubmit}
+            initialValues={initialValues}
+            validationSchema={checkoutSchema}
+            sx={{ p: 2 }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleBlur,
+              handleChange,
+              handleSubmit,
+            }) => (
+              <form onSubmit={handleSubmit}>
+                <Box
+                  display="grid"
+                  gap="30px"
+                  gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                  sx={{
+                    "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                  }}
+                >
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Bank List"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.expenseCategory}
+                    name="expenseCategory"
+                    error={!!touched.expenseCategory && !!errors.expenseCategory}
+                    helperText={touched.expenseCategory && errors.expenseCategory}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="number"
+                    label="Amount $"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.budgets}
+                    name="budgets"
+                    error={!!touched.budgets && !!errors.budgets}
+                    helperText={touched.budgets && errors.budgets}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="List Of Category"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.expenseCategory}
+                    name="expenseCategory"
+                    error={!!touched.expenseCategory && !!errors.expenseCategory}
+                    helperText={touched.expenseCategory && errors.expenseCategory}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Date Time Picker"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.expenseCategory}
+                    name="expenseCategory"
+                    error={!!touched.expenseCategory && !!errors.expenseCategory}
+                    helperText={touched.expenseCategory && errors.expenseCategory}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  <TextField
+                    multiline
+                    rows={3}
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    label="Description (Optional)"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.description}
+                    name="description"
+                    error={!!touched.description && !!errors.description}
+                    helperText={touched.description && errors.description}
+                    sx={{ gridColumn: "span 4" }}
+                  />
+                </Box>
+                <DialogActions sx={{ mt: 2 }}>
+                  <Button onClick={handleClose} color="secondary" variant="outlined">Close</Button>
+                  <LoadingButton loading={formLoading} 
+                  onClick={handleFormSubmit} type="submit" color="secondary" variant="contained">Add Record</LoadingButton>
+                </DialogActions>
+              </form>
+            )}
+          </Formik>
+        </DialogContent>
+          : 
+          <>
+          </>
+          }
+          
         </Dialog>
 
 

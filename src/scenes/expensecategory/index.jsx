@@ -185,7 +185,7 @@ const Form = () => {
           fullWidth
           maxWidth='sm'
         >
-          <DialogTitle>Subscribe</DialogTitle>
+          <DialogTitle>Expense Category</DialogTitle>
           <DialogContent>
             <Formik
               onSubmit={handleFormSubmit}
