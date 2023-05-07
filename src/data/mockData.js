@@ -266,55 +266,46 @@ export const mockDataInvoices = [
   },
 ];
 
-export const mockTransactions = [
+export const expenselist = [
   {
-    txId: "01e4dsa",
-    user: "johndoe",
+    title: "Apple Fruits",
+    category: "Grocery",
     date: "2021-09-01",
-    cost: "43.95",
+    cost: "$ 43.95",
   },
   {
-    txId: "0315dsaa",
-    user: "jackdower",
+    title: "Pen",
+    category: "Study",
     date: "2022-04-01",
-    cost: "133.45",
+    cost: "$ 3.45",
   },
   {
-    txId: "01e4dsa",
-    user: "aberdohnny",
+    title: "Petrol",
+    category: "Car",
     date: "2021-09-01",
-    cost: "43.95",
+    cost: "$ 43.95",
   },
   {
-    txId: "51034szv",
-    user: "goodmanave",
-    date: "2022-11-05",
-    cost: "200.95",
-  },
-  {
-    txId: "0a123sb",
-    user: "stevebower",
-    date: "2022-11-02",
-    cost: "13.55",
-  },
-  {
-    txId: "01e4dsa",
-    user: "aberdohnny",
-    date: "2021-09-01",
-    cost: "43.95",
-  },
-  {
-    txId: "120s51a",
-    user: "wootzifer",
-    date: "2019-04-15",
-    cost: "24.20",
-  },
-  {
-    txId: "0315dsaa",
-    user: "jackdower",
+    title: "Pant Shirt",
+    category: "Clouth",
     date: "2022-04-01",
-    cost: "133.45",
+    cost: "$ 33.45",
   },
+  
+  {
+    title: "Purse Fruits",
+    category: "Grocery",
+    date: "2021-09-01",
+    cost: "$ 43.95",
+  },
+  {
+    title: "Pen",
+    category: "Study",
+    date: "2022-04-01",
+    cost: "$ 133.45",
+  },
+  
+  
 ];
 
 export const mockBarData = [

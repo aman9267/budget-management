@@ -28,15 +28,15 @@ export const tokens = (mode) => ({
           900: "#040509",
         },
         greenAccent: {
-          100: "#dbf5ee",
-          200: "#b7ebde",
-          300: "#94e2cd",
-          400: "#70d8bd",
-          500: "#4cceac",
-          600: "#3da58a",
-          700: "#2e7c67",
-          800: "#1e5245",
-          900: "#0f2922",
+          100: "#D6E4FF",
+          200: "#ADC8FF",
+          300: "#84A9FF",
+          400: "#6690FF",
+          500: "#3366FF",
+          600: "#254EDB",
+          700: "#1939B7",
+          800: "#102693",
+          900: "#091A7A",
         },
         redAccent: {
           100: "#f8dcdb",
@@ -50,15 +50,15 @@ export const tokens = (mode) => ({
           900: "#2c100f",
         },
         blueAccent: {
-          100: "#e1e2fe",
-          200: "#c3c6fd",
-          300: "#a4a9fc",
-          400: "#868dfb",
-          500: "#6870fa",
-          600: "#535ac8",
-          700: "#3e4396",
-          800: "#2a2d64",
-          900: "#151632",
+          100: "#EAFCD4",
+          200: "#D1F9AB",
+          300: "#ACED7E",
+          400: "#87DB5B",
+          500: "#56C42B",
+          600: "#3CA81F",
+          700: "#268D15",
+          800: "#15710D",
+          900: "#085E08",
         },
       }
     : {
@@ -85,15 +85,15 @@ export const tokens = (mode) => ({
           900: "#d0d1d5",
         },
         greenAccent: {
-          100: "#0f2922",
-          200: "#1e5245",
-          300: "#2e7c67",
-          400: "#3da58a",
-          500: "#4cceac",
-          600: "#70d8bd",
-          700: "#94e2cd",
-          800: "#b7ebde",
-          900: "#dbf5ee",
+          900: "#D6E4FF",
+          800: "#ADC8FF",
+          700: "#84A9FF",
+          600: "#6690FF",
+          500: "#3366FF",
+          400: "#254EDB",
+          300: "#1939B7",
+          200: "#102693",
+          100: "#091A7A",
         },
         redAccent: {
           100: "#2c100f",
@@ -107,15 +107,15 @@ export const tokens = (mode) => ({
           900: "#f8dcdb",
         },
         blueAccent: {
-          100: "#151632",
-          200: "#2a2d64",
-          300: "#3e4396",
-          400: "#535ac8",
-          500: "#6870fa",
-          600: "#868dfb",
-          700: "#a4a9fc",
-          800: "#c3c6fd",
-          900: "#e1e2fe",
+          100: "#FEF6D6",
+          200: "#FDECAE",
+          300: "#FADD85",
+          400: "#F6CD66",
+          500: "#f1b535",
+          600: "#CF9326",
+          700: "#f1b535",
+          800: "#f1b535",
+          900: "#f1b535",
         },
       }),
 });
@@ -199,7 +199,7 @@ export const ColorModeContext = createContext({
 });
 
 export const useMode = () => {
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
 
   const colorMode = useMemo(
     () => ({
