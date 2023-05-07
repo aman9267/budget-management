@@ -30,7 +30,7 @@ const Topbar = () => {
   const logoutHandle = ()=>{
     localStorage.removeItem("token");
     setAnchorEl(null);
-    navigate('/login')
+    navigate('/')
   }
 
   return (
