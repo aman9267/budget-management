@@ -35,7 +35,7 @@ export default function Login() {
         const user = userCredential.user;
         console.log(user?.accessToken)
         localStorage.setItem("token", user?.accessToken)
-        navigate('/')
+        navigate('/dashboard')
         // ...
       })
       .catch((error) => {

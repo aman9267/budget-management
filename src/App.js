@@ -28,8 +28,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
             <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Login />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/expense" element={<ExpenseCategory />} />
               <Route path="/team" element={<Team />} />
               <Route path="/contacts" element={<Contacts />} />
