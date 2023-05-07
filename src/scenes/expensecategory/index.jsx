@@ -1,11 +1,11 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Modal, TextField, Typography, useTheme } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import { tokens } from "../../theme";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import Layout from "../../Laybout";
-import { collection, doc, getFirestore, setDoc, getDoc, addDoc } from 'firebase/firestore';
+import { collection, getFirestore, addDoc } from 'firebase/firestore';
 import AddIcon from '@mui/icons-material/Add';
 import { db } from "../../firebase-config";
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -15,17 +15,6 @@ import { useEffect, useState } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { LoadingButton } from "@mui/lab";
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 
 const Form = () => {
 
@@ -35,11 +24,9 @@ const Form = () => {
 
 
   // State List Here 
-  const [isSidebar, setIsSidebar] = useState(true);
   const [ExpenseList, setExpenseList] = useState([])
   const [open, setOpen] = useState(false)
   const [formLoading, setFormLoading] = useState(false)
-  const [loading, setLoading] = useState(false)
 
 
   const [ExpenseCategoryList] = useCollection(
@@ -50,7 +37,6 @@ const Form = () => {
   );
 
   useEffect(() => {
-    setLoading(true)
     const tempData = [];
     if (ExpenseCategoryList) {
       let index = 1;
@@ -60,7 +46,6 @@ const Form = () => {
       });
       setExpenseList(tempData);
     }
-    setLoading(false)
   }, [ExpenseCategoryList]);
 
 
@@ -141,7 +126,7 @@ const Form = () => {
           <Header title="CREATE USER" subtitle="Create a New User Profile" />
           <Box>
             <Button
-              onClick={() => { setOpen(true) }}
+              onClick={ handleOpen}
               sx={{
                 backgroundColor: colors.blueAccent[700],
                 color: colors.grey[100],
