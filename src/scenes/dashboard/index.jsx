@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, MenuItem, Select, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { useNavigate } from "react-router-dom";
 import { expenselist } from "../../data/mockData";
@@ -18,6 +18,9 @@ import { addDoc, collection } from "@firebase/firestore";
 import { db } from "../../firebase-config";
 import { Formik } from "formik";
 import { LoadingButton } from "@mui/lab";
+
+
+const bankName = ['Credit Card', 'Cash', 'Bank', "Debit Card"]
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -50,6 +53,7 @@ const Dashboard = () => {
   // }, [ExpenseCategoryList]);
 
   const handleFormSubmit = async (values) => {
+    console.log(values)
     setFormLoading(true)
     try {
       await addDoc(collection(db, "expenseCategory"), {
@@ -82,7 +86,7 @@ const Dashboard = () => {
 
             <Box>
               <Button
-              onClick={ handleOpen}
+                onClick={handleOpen}
                 sx={{
                   backgroundColor: 'red',
                   color: colors.grey[100],
@@ -339,148 +343,167 @@ const Dashboard = () => {
 
           {/* Open Add Expense Item Modal */}
           <Dialog open={open} onClose={handleClose}
-          fullWidth
-          maxWidth='sm'
-        >
-          <DialogTitle>Add Record</DialogTitle>
-          <Box display='flex' justifyContent='center' gap={1} >
-            <Button variant='contained'
-            sx={{backgroundColor: '#DB0C05', 
-            ':hover': {
-              bgcolor: '#7A011B', 
-              color: 'white',
-            },
-            borderRadius: 0,
-            boxShadow: 'none'
-          }}
-          onClick={()=>{setRecord('Expense')}}
-            >
-              Expense
-            </Button>
-            <Button variant='contained'
-            sx={{backgroundColor: '#1DA700', 
-            ':hover': {
-              bgcolor: '#046F00', 
-              color: 'white',
-            },
-            borderRadius: 0,
-            boxShadow: 'none'
-          }}
-          onClick={()=>{setRecord('Debits')}}
-            >
-              Income
-            </Button>
-          </Box>
-          {record === 'Expense' ? 
-          <DialogContent 
-          // sx={{backgroundColor: 'green'}}
+            fullWidth
+            maxWidth='sm'
           >
-          <Formik
-            onSubmit={handleFormSubmit}
-            initialValues={initialValues}
-            validationSchema={checkoutSchema}
-            sx={{ p: 2 }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleBlur,
-              handleChange,
-              handleSubmit,
-            }) => (
-              <form onSubmit={handleSubmit}>
-                <Box
-                  display="grid"
-                  gap="30px"
-                  gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-                  sx={{
-                    "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-                  }}
+            <DialogTitle>Add Record</DialogTitle>
+            <Box display='flex' justifyContent='center' gap={1} >
+              <Button variant='contained'
+                sx={{
+                  backgroundColor: '#DB0C05',
+                  ':hover': {
+                    bgcolor: '#7A011B',
+                    color: 'white',
+                  },
+                  borderRadius: 0,
+                  boxShadow: 'none'
+                }}
+                onClick={() => { setRecord('Expense') }}
+              >
+                Expense
+              </Button>
+              <Button variant='contained'
+                sx={{
+                  backgroundColor: '#1DA700',
+                  ':hover': {
+                    bgcolor: '#046F00',
+                    color: 'white',
+                  },
+                  borderRadius: 0,
+                  boxShadow: 'none'
+                }}
+                onClick={() => { setRecord('Debits') }}
+              >
+                Income
+              </Button>
+            </Box>
+            {record === 'Expense' ?
+              <DialogContent
+              // sx={{backgroundColor: 'green'}}
+              >
+                <Formik
+                  onSubmit={handleFormSubmit}
+                  initialValues={initialValues}
+                  validationSchema={checkoutSchema}
+                  sx={{ p: 2 }}
                 >
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Bank List"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.expenseCategory}
-                    name="expenseCategory"
-                    error={!!touched.expenseCategory && !!errors.expenseCategory}
-                    helperText={touched.expenseCategory && errors.expenseCategory}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="number"
-                    label="Amount $"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.budgets}
-                    name="budgets"
-                    error={!!touched.budgets && !!errors.budgets}
-                    helperText={touched.budgets && errors.budgets}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="List Of Category"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.expenseCategory}
-                    name="expenseCategory"
-                    error={!!touched.expenseCategory && !!errors.expenseCategory}
-                    helperText={touched.expenseCategory && errors.expenseCategory}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Date Time Picker"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.expenseCategory}
-                    name="expenseCategory"
-                    error={!!touched.expenseCategory && !!errors.expenseCategory}
-                    helperText={touched.expenseCategory && errors.expenseCategory}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  <TextField
-                    multiline
-                    rows={3}
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    label="Description (Optional)"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.description}
-                    name="description"
-                    error={!!touched.description && !!errors.description}
-                    helperText={touched.description && errors.description}
-                    sx={{ gridColumn: "span 4" }}
-                  />
-                </Box>
-                <DialogActions sx={{ mt: 2 }}>
-                  <Button onClick={handleClose} color="secondary" variant="outlined">Close</Button>
-                  <LoadingButton loading={formLoading} 
-                  onClick={handleFormSubmit} type="submit" color="secondary" variant="contained">Add Record</LoadingButton>
-                </DialogActions>
-              </form>
-            )}
-          </Formik>
-        </DialogContent>
-          : 
-          <>
-          </>
-          }
-          
-        </Dialog>
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleBlur,
+                    handleChange,
+                    handleSubmit,
+                  }) => (
+                    <form onSubmit={handleSubmit}>
+                      <Box
+                        display="grid"
+                        gap="30px"
+                        gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                        sx={{
+                          "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                        }}
+                      >
+                        <Select
+                        fullWidth
+                          labelId="demo-multiple-name-label"
+                          id="demo-multiple-name"
+                          name='expenseCategory'
+                          variant='filled'
+                          value={values.expenseCategory}
+                          onChange={handleChange}
+                          error={!!touched.expenseCategory && !!errors.expenseCategory}
+                          helperText={touched.expenseCategory && errors.expenseCategory}
+                          sx={{ gridColumn: "span 2" }}
+                        >
+                          {bankName.map((name) => (
+                            <MenuItem
+                              key={name}
+                              value={name}
+                            >
+                              {name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                        <TextField
+                          fullWidth
+                          variant="filled"
+                          type="number"
+                          label="Amount $"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.budgets}
+                          name="budgets"
+                          error={!!touched.budgets && !!errors.budgets}
+                          helperText={touched.budgets && errors.budgets}
+                          sx={{ gridColumn: "span 2" }}
+                        />
+                        <Select
+                        fullWidth
+                          labelId="demo-multiple-name-label"
+                          id="demo-multiple-name"
+                          name='expenseCategory'
+                          variant='filled'
+                          value={values.expenseCategory}
+                          onChange={handleChange}
+                          error={!!touched.expenseCategory && !!errors.expenseCategory}
+                          helperText={touched.expenseCategory && errors.expenseCategory}
+                          sx={{ gridColumn: "span 2" }}
+                        >
+                          {bankName.map((name) => (
+                            <MenuItem
+                              key={name}
+                              value={name}
+                            >
+                              {name}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                       
+                        <TextField
+                          fullWidth
+                          variant="filled"
+                          type="text"
+                          label="Date Time Picker"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.expenseCategory}
+                          name="expenseCategory"
+                          error={!!touched.expenseCategory && !!errors.expenseCategory}
+                          helperText={touched.expenseCategory && errors.expenseCategory}
+                          sx={{ gridColumn: "span 2" }}
+                        />
+                        <TextField
+                          multiline
+                          rows={3}
+                          fullWidth
+                          variant="filled"
+                          type="text"
+                          label="Description (Optional)"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.description}
+                          name="description"
+                          error={!!touched.description && !!errors.description}
+                          helperText={touched.description && errors.description}
+                          sx={{ gridColumn: "span 4" }}
+                        />
+                      </Box>
+                      <DialogActions sx={{ mt: 2 }}>
+                        <Button onClick={handleClose} color="secondary" variant="outlined">Close</Button>
+                        <LoadingButton loading={formLoading}
+                          onClick={handleFormSubmit} type="submit" color="secondary" variant="contained">Add Record</LoadingButton>
+                      </DialogActions>
+                    </form>
+                  )}
+                </Formik>
+              </DialogContent>
+              :
+              <>
+              </>
+            }
+
+          </Dialog>
 
 
           {/* Close Add Expense Item Modal  */}
